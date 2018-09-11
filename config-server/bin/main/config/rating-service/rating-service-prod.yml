@@ -1,6 +1,0 @@
-spring:
-  data:
-    mongodb:
-      #URL to connect to MongoDB Atlas Instance - Replace with correct credentials OR use a local/Docker MongoDB
-      #Example:
-      #uri: mongodb+srv://USERNAME:PASSWORD@CLUSTERNAME/DBNAME?retryWrites=true
