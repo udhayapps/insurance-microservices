@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+ping-rating-service:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: http://localhost:8085, http://localhost:8086, http://localhost:8087
+    ServerListRefreshInterval: 15000
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      enabled: true
+      show-details: ALWAYS
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  config: classpath:logback.xml

@@ -1,0 +1,216 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Udhayakumar Rajendran
+      changes:
+
+# QUOTE table:
+        - createTable:
+            tableName: quote
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT UNSIGNED
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: quote_reference
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_reference
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: premium
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: excess
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: true
+        - addUniqueConstraint:
+            columnNames: quote_reference
+            constraintName: quote_ref_uniq-1
+            tableName: quote
+        - addUniqueConstraint:
+            columnNames: policy_reference
+            constraintName: policy_ref_uniq-2
+            tableName: quote
+
+# RISK table:
+        - createTable:
+            tableName: risk
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT UNSIGNED
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: quote_id
+                  type: BIGINT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cover_start_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cover_level
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: risk_type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: year_bought
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: month_bought
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: annual_mileage
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: voluntary_excess
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: years_no_claims_bonus_held
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registration
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: make
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: year_manufactured
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fuel_type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transmission
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: licence_type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: years_licence_held
+                  type: INT UNSIGNED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: occupation
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: VARCHAR(400)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: postcode
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_home_owner
+                  type: BIT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_any_children
+                  type: BIT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_any_claims
+                  type: BIT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_any_convictions
+                  type: BIT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_gdpr_consented
+                  type: BIT
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            columnNames: id, registration
+            constraintName: id-reg-uniq-1
+            tableName: risk
+        - addUniqueConstraint:
+            columnNames: full_name, postcode
+            constraintName: name-postcode-uniq-2
+            tableName: risk
+        - addForeignKeyConstraint:
+            constraintName: risk:quote_id-x-quote:id-foreign-1
+            baseColumnNames: quote_id
+            baseTableName: risk
+            referencedColumnNames: id
+            referencedTableName: quote
