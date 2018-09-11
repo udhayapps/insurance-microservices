@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: zuul-server
+  profiles:
+    active: default
+  cloud:
+    config:
+      enabled: true
+      #uri => Not required if Config Service is running on Default URI(http://localhost:8888). Change this if using a different endpoint.
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:1111
